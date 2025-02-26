@@ -12,5 +12,6 @@
 12.     in tailwind.config.ts in extend prop add: fontFamily: { sans: ["var(--font--geist-sans)", ...fontFamily.sans]}
 13.     in root page.tsx change return code
 14.     remove svg images from public folder
-15.     create app/admin folder and page.tsx inside
-16.     
+15.     create app/admin folder
+16.     create layout.tsx and page.tsx inside admin folder
+17.     
