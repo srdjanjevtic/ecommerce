@@ -12,6 +12,26 @@
 12.     in tailwind.config.ts in extend prop add: fontFamily: { sans: ["var(--font--geist-sans)", ...fontFamily.sans]}
 13.     in root page.tsx change return code
 14.     remove svg images from public folder
-15.     create app/admin folder
-16.     create layout.tsx and page.tsx inside admin folder
-17.     
+15.     create src/components folder
+16.     create src/components/Nav.tsx, Nav and Navlink components inside
+17.     create app/admin folder
+18.     create layout.tsx inside admin folder with links to admin/products, admin/users and admin/orders
+19.     npx shadcn@latest add card
+20.     in src/lib folder create formatters.ts
+21.     in formatters.ts create two functions: formatCurrency and formatNumber
+22.     create page.tsx inside admin folder
+23.     in admin/page.tsx import Card and children components, functions from formatters.ts and prisma from db/db
+24.     create internal dashboardCard components
+25.     get products, sales and users data from db
+26.     create admin/loading.tsx page
+27.     npx shadcn@latest add dropdown-menu button table
+28.     npm i zod
+29.     create admin/products/page.tsx
+30.     create internal component ProductTable
+31.     create admin/products/_components/ProductActions.tsx
+32.     export ActiveToggleDropdownItem and DeleteDropdownItem components
+33.     npx shadcn@latest add input label textarea
+34.     create component admin/products/_components/ProductForm.tsx
+35.     create admin/products/new/page.tsx
+36.     in admin/_actions/products create functions addProduct and updateProduct
+37.     
