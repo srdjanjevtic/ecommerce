@@ -6,7 +6,7 @@ import fs from "fs/promises"
 import { notFound, redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 
-const fileSchema = z.instanceof(File, { message: "Required" })
+const fileSchema = z.instanceof(File, { message: "File is required" })
 const imageSchema = fileSchema.refine(
   file => file.size === 0 || file.type.startsWith("image/")
 )
@@ -15,11 +15,12 @@ const addSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   priceInCents: z.coerce.number().int().min(1),
-  file: fileSchema.refine(file => file.size > 0, "Required"),
-  image: imageSchema.refine(file => file.size > 0, "Required"),
+  file: fileSchema.refine(file => file.size > 0, "Empty file"),
+  image: imageSchema.refine(file => file.size > 0, "Empty image"),
 })
 
 export async function addProduct(prevState: unknown, formData: FormData) {
+  // await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000))
   const result = addSchema.safeParse(Object.fromEntries(formData.entries()))
   if (result.success === false) {
     return result.error.formErrors.fieldErrors

@@ -18,7 +18,10 @@ export function ProductForm({ product }: { product?: Product | null }) {
   )
   const [priceInCents, setPriceInCents] = useState<number | undefined>(
     product?.priceInCents
-  )
+    )
+    const [productName, setProductName] = useState<string | undefined>(
+      product?.name 
+    )
 
   return (
     <form action={action} className="space-y-8 px-4">
@@ -29,7 +32,8 @@ export function ProductForm({ product }: { product?: Product | null }) {
           id="name"
           name="name"
           required
-          defaultValue={product?.name || ""}
+          value={productName}
+          onChange={e => setProductName(e.target.value)}
         />
         {error.name && <div className="text-destructive">{error.name}</div>}
       </div>
@@ -41,7 +45,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
           name="priceInCents"
           required
           value={priceInCents}
-          onChange={e => setPriceInCents(Number(e.target.value) || undefined)}
+          onChange={e => setPriceInCents(Number(e.target.value))}
         />
         <div className="text-muted-foreground">
           {formatCurrency((priceInCents || 0) / 100)}

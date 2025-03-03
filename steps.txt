@@ -32,6 +32,6 @@
 32.     export ActiveToggleDropdownItem and DeleteDropdownItem components
 33.     npx shadcn@latest add input label textarea
 34.     create component admin/products/_components/ProductForm.tsx
-35.     create admin/products/new/page.tsx
-36.     in admin/_actions/products create functions addProduct and updateProduct
-37.     
+35.     in admin/_actions/products create functions addProduct and updateProduct
+36.     create admin/products/new/page.tsx and import ProductForm.tsx
+37.          
