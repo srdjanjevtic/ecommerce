@@ -8,13 +8,13 @@ import type { InferGetStaticPropsType } from 'next';
 
 export async function getStaticProps() {
   // Return the props for the page
-  return {
+return Promise.resolve({
     props: {
-            params: {
+      params: {
         id: '',
       },
     },
-  };
+  });
 }
 
 export default async function PurchasePage({
