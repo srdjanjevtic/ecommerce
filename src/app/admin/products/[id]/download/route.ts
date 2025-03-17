@@ -3,10 +3,13 @@ import { notFound } from "next/navigation"
 import { NextRequest, NextResponse } from "next/server"
 import fs from "fs/promises"
 
+type Params = Promise<{ id: string }>
+
 export async function GET(
   req: NextRequest,
-  { params: { id } }: { params: { id: string } }
+  { params}: { params: Params }
 ) {
+  const { id } = await params
   const product = await prisma.product.findUnique({
     where: { id },
     select: { filePath: true, name: true },
