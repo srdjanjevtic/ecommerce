@@ -4,12 +4,22 @@ import Stripe from "stripe"
 import { CheckoutForm } from "./_components/CheckoutForm"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
+import type { InferGetStaticPropsType } from 'next';
+
+export async function getStaticProps() {
+  // Return the props for the page
+  return {
+    props: {
+            params: {
+        id: '',
+      },
+    },
+  };
+}
 
 export default async function PurchasePage({
   params: { id },
-}: {
-  params: { id: string }
-  }) {
+}: InferGetStaticPropsType<typeof getStaticProps>)  {
   
   const product = await prisma.product.findUnique({ where: { id } })
   if (product == null) return notFound()
