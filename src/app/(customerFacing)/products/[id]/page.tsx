@@ -5,10 +5,12 @@ import { CheckoutForm } from "./_components/CheckoutForm"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 
+type Params = Promise<{ id: string }>
+
 export default async function PurchasePage({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Params
   }) {
   const { id } = await params;
   const product = await prisma.product.findUnique({ where: { id } })
