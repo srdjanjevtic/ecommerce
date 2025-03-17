@@ -4,11 +4,18 @@ import Stripe from "stripe"
 import { CheckoutForm } from "./_components/CheckoutForm"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
-import type { InferGetStaticPropsType } from 'next';
+// import type { InferGetStaticPropsType } from 'next';
+import { GetServerSideProps } from 'next';
+
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
 export async function getStaticProps() {
   // Return the props for the page
-return Promise.resolve({
+  return Promise.resolve({
     props: {
       params: {
         id: '',
@@ -17,11 +24,18 @@ return Promise.resolve({
   });
 }
 
-export default async function PurchasePage({
-  params: { id },
-}: InferGetStaticPropsType<typeof getStaticProps>)  {
-  
-  const product = await prisma.product.findUnique({ where: { id } })
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.params as { id: string }; // Type assertion
+  return {
+    props: {
+      params: { id },
+    },
+  };
+};
+
+// Corrected function declaration
+const PurchasePage: React.FC<PageProps> = async ({ params }) => {
+  const product = await prisma.product.findUnique({ where: { id: params.id } }) // Use params.id
   if (product == null) return notFound()
 
   const paymentIntent = await stripe.paymentIntents.create({
@@ -41,3 +55,5 @@ export default async function PurchasePage({
     />
   )
 }
+
+export default PurchasePage;
