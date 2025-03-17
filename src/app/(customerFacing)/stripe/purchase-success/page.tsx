@@ -8,13 +8,16 @@ import Stripe from "stripe"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 
+type SearchParams = Promise<{ payment_intent: string }>
+
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: { payment_intent: string }
+  searchParams: SearchParams
   }) {
+  const { payment_intent } = await searchParams
     const paymentIntent = await stripe.paymentIntents.retrieve(
-    searchParams.payment_intent)
+    payment_intent)
   if (paymentIntent.metadata.productId == null) return notFound()
 
   const product = await prisma.product.findUnique({
