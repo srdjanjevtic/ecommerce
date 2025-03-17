@@ -1,11 +1,11 @@
 import { PageHeader } from "@/app/admin/_components/PageHeader"
 import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard"
-import db from "@/db/db"
+import prisma from "@/db/db"
 import { cache } from "@/lib/cache"
 import { Suspense } from "react"
 
 const getProducts = cache(() => {
-  return db.product.findMany({
+  return prisma.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { name: "asc" },
   })

@@ -46,7 +46,7 @@ async function OrdersTable() {
 
   return (
     <Table>
-      <TableHeader>
+      <TableHeader className="bg-transparent border-b-8">
         <TableRow>
           <TableHead>Product</TableHead>
           <TableHead>Customer</TableHead>
@@ -58,7 +58,7 @@ async function OrdersTable() {
       </TableHeader>
       <TableBody>
         {orders.map(order => (
-          <TableRow key={order.id}>
+          <TableRow key={order.id} className="border-b-4 hover:bg-zinc-200">
             <TableCell>{order.product.name}</TableCell>
             <TableCell>{order.user.email}</TableCell>
             <TableCell>

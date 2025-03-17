@@ -2,16 +2,17 @@
 
 import prisma from "@/db/db"
 import OrderHistoryEmail from "@/email/OrderHistory"
+import React from "react"
 import { Resend } from "resend"
 import { z } from "zod"
-
+  
 const emailSchema = z.string().email()
 const resend = new Resend(process.env.RESEND_API_KEY as string)
 
 export async function emailOrderHistory(
   prevState: unknown,
   formData: FormData
-): Promise<{ message?: string; error?: string }> {
+): Promise<{ message?: string; error?: string } | undefined > {
   const result = emailSchema.safeParse(formData.get("email"))
 
   if (result.success === false) {
@@ -65,7 +66,7 @@ export async function emailOrderHistory(
     from: `Support <${process.env.SENDER_EMAIL}>`,
     to: user.email,
     subject: "Order History",
-    react: <OrderHistoryEmail orders={await Promise.all(orders)} />,
+    react: React.createElement(OrderHistoryEmail, { orders: await Promise.all(orders) })
   })
 
   if (data.error) {

@@ -34,4 +34,15 @@
 34.     create component admin/products/_components/ProductForm.tsx
 35.     in admin/_actions/products create functions addProduct and updateProduct
 36.     create admin/products/new/page.tsx and import ProductForm.tsx
-37.          
+...........................................................................................
+
+in browser open link: https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local
+- in command line run stripe.exe
+stripe login
+stripe listen --forward-to localhost:3000/webhooks/stripe
+
+- to run email dev server run command: npm run email
+http://localhost:3001
+
+- to run prisma studio run command: npx prisma studio
+http://localhost:5555

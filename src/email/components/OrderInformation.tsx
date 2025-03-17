@@ -53,7 +53,7 @@ export function OrderInformation({
         <Img
           width="100%"
           alt={product.name}
-          src={`${process.env.NEXT_PUBLIC_SERVER_URL}${product.imagePath}`}
+          src={`http://localhost:3000${product.imagePath}`}
         />
         <Row className="mt-8">
           <Column className="align-bottom">
@@ -61,7 +61,7 @@ export function OrderInformation({
           </Column>
           <Column align="right">
             <Button
-              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/products/download/${downloadVerificationId}`}
+              href={`http://localhost:3000/products/download/${downloadVerificationId}`}
               className="bg-black text-white px-6 py-4 rounded text-lg"
             >
               Download

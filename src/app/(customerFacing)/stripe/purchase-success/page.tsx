@@ -12,10 +12,9 @@ export default async function SuccessPage({
   searchParams,
 }: {
   searchParams: { payment_intent: string }
-}) {
-  const paymentIntent = await stripe.paymentIntents.retrieve(
-    searchParams.payment_intent
-  )
+  }) {
+    const paymentIntent = await stripe.paymentIntents.retrieve(
+    searchParams.payment_intent)
   if (paymentIntent.metadata.productId == null) return notFound()
 
   const product = await prisma.product.findUnique({
@@ -71,7 +70,7 @@ async function createDownloadVerification(productId: string) {
     await prisma.downloadVerification.create({
       data: {
         productId,
-        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1 day
       },
     })
   ).id

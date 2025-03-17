@@ -25,36 +25,36 @@ type OrderHistoryEmailProps = {
   }[]
 }
 
-OrderHistoryEmail.PreviewProps = {
-  orders: [
-    {
-      id: crypto.randomUUID(),
-      createdAt: new Date(),
-      pricePaidInCents: 10000,
-      downloadVerificationId: crypto.randomUUID(),
-      product: {
-        name: "Product name",
-        description: "Some description",
-        imagePath:
-          "/products/5aba7442-e4a5-4d2e-bfa7-5bd358cdad64-02 - What Is Next.js.jpg",
-      },
-    },
-    {
-      id: crypto.randomUUID(),
-      createdAt: new Date(),
-      pricePaidInCents: 2000,
-      downloadVerificationId: crypto.randomUUID(),
-      product: {
-        name: "Product name 2",
-        description: "Some other desc",
-        imagePath:
-          "/products/db3035a5-e762-41b0-996f-d54ec730bc9c-01 - Course Introduction.jpg",
-      },
-    },
-  ],
-} satisfies OrderHistoryEmailProps
-
-export default function OrderHistoryEmail({ orders }: OrderHistoryEmailProps) {
+// OrderHistoryEmail.PreviewProps = {
+//   orders: [
+//     {
+//       id: crypto.randomUUID(),
+//       createdAt: new Date(),
+//       pricePaidInCents: 10000,
+//       downloadVerificationId: crypto.randomUUID(),
+//       product: {
+//         name: "Product name",
+//         description: "Some description",
+//         imagePath:
+//           "/products/88f73a67-11b1-423e-b428-41491dcebac3-579126_435079686574208_1269054688_n_435079686574208.jpg",
+//       },
+//     },
+//     {
+//       id: crypto.randomUUID(),
+//       createdAt: new Date(),
+//       pricePaidInCents: 2000,
+//       downloadVerificationId: crypto.randomUUID(),
+//       product: {
+//         name: "Product name 2",
+//         description: "Some other desc",
+//         imagePath:
+//           "/products/d6ec4d85-f777-4962-b048-cdfc62b7eaf7-musaka1.jpg",
+//       },
+//     },
+//   ],
+// } satisfies OrderHistoryEmailProps
+ 
+export default async function OrderHistoryEmail({ orders }: OrderHistoryEmailProps) {
   return (
     <Html>
       <Preview>Order History & Downloads</Preview>
@@ -63,7 +63,7 @@ export default function OrderHistoryEmail({ orders }: OrderHistoryEmailProps) {
         <Body className="font-sans bg-white">
           <Container className="max-w-xl">
             <Heading>Order History</Heading>
-            {orders.map((order, index) => (
+            {await orders.map((order, index) => (
               <React.Fragment key={order.id}>
                 <OrderInformation
                   order={order}

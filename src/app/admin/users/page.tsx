@@ -44,7 +44,7 @@ async function UsersTable() {
 
   return (
     <Table>
-      <TableHeader>
+      <TableHeader className="bg-transparent border-b-8">
         <TableRow>
           <TableHead>Email</TableHead>
           <TableHead>Orders</TableHead>
@@ -56,7 +56,7 @@ async function UsersTable() {
       </TableHeader>
       <TableBody>
         {users.map(user => (
-          <TableRow key={user.id}>
+          <TableRow key={user.id} className="border-b-4 hover:bg-zinc-200">
             <TableCell>{user.email}</TableCell>
             <TableCell>{formatNumber(user.orders.length)}</TableCell>
             <TableCell>

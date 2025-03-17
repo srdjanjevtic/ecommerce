@@ -19,6 +19,7 @@ export function ActiveToggleDropdownItem({
   const router = useRouter()
   return (
     <DropdownMenuItem
+      className="cursor-pointer" 
       disabled={isPending}
       onClick={() => {
         startTransition(async () => {
@@ -43,7 +44,7 @@ export function DeleteDropdownItem({
   const router = useRouter()
   return (
     <DropdownMenuItem
-    //   variant="destructive"
+      className="cursor-pointer destructive hover:text-white hover:bg-red-600" 
       disabled={disabled || isPending}
       onClick={() => {
         startTransition(async () => {

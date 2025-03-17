@@ -26,7 +26,7 @@ import {
 
 export default function AdminProductsPage() {
   return (
-    <>
+    <div className="max-w-7xl mx-auto bg-zinc-100 px-4 py-2">
       <div className="flex justify-between items-center gap-4 pr-4">
         <PageHeader>Products</PageHeader>
         <Button variant="default" asChild>
@@ -34,7 +34,7 @@ export default function AdminProductsPage() {
         </Button>
       </div>
       <ProductsTable />
-    </>
+    </div>
   )
 }
 
@@ -54,7 +54,7 @@ async function ProductsTable() {
 
   return (
     <Table className="px-4">
-      <TableHeader>
+      <TableHeader className="bg-transparent border-b-8">
         <TableRow>
           <TableHead className="w-0">
             <span className="sr-only">Available For Purchase</span>
@@ -69,7 +69,7 @@ async function ProductsTable() {
       </TableHeader>
       <TableBody>
         {products.map(product => (
-          <TableRow key={product.id}>
+          <TableRow key={product.id} className="border-b-4 hover:bg-zinc-200">
             <TableCell>
               {product.isAvailableForPurchase ? (
                 <>
@@ -94,12 +94,12 @@ async function ProductsTable() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <a download href={`/admin/products/${product.id}/download`}>
+                    <a className="cursor-pointer"  download href={`/admin/products/${product.id}/download`}>
                       Download
                     </a>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href={`/admin/products/${product.id}/edit`}>
+                    <Link className="cursor-pointer" href={`/admin/products/${product.id}/edit`}>
                       Edit
                     </Link>
                   </DropdownMenuItem>

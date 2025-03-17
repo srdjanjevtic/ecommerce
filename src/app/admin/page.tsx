@@ -91,7 +91,7 @@ function DashboardCard({ title, subtitle, body }: DashboardCardProps) {
         <CardDescription className="text-bold bg-zinc-100 px-2 py-1">{subtitle}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-bold bg-zinc-100 px-2 py-1">{body}</p>
+        <p className="font-bold text-lg bg-zinc-100 px-2 py-4">{body}</p>
       </CardContent>
     </Card>
   )
