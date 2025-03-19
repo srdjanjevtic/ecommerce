@@ -47,6 +47,7 @@ export function CheckoutForm({ product, clientSecret }: CheckoutFormProps) {
             fill
             alt={product.name}
             className="object-cover"
+            unoptimized
           />
         </div>
         <div>
