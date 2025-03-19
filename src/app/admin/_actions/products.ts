@@ -30,7 +30,7 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   const data = result.data
 
   // NON VERCEL HOBBY CODE
-
+//
   // await fs.mkdir("products", { recursive: true })
   // const filePath = `products/${crypto.randomUUID()}-${data.file.name}`
   // await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
