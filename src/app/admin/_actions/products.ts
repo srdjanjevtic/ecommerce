@@ -57,6 +57,7 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   const imageBlob = new Blob([imageBuffer], { type: data.image.type });
   const imageResult = await put(`${crypto.randomUUID()}-${data.image.name}`, imageBlob, {
     access: 'public',
+    contentType: data.image.type,
   });
   const imageUrl = imageResult.url; // Extract the URL from the PutBlobResult object
 
