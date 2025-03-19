@@ -68,8 +68,8 @@ export async function addProduct(prevState: unknown, formData: FormData) {
       name: data.name,
       description: data.description,
       priceInCents: data.priceInCents,
-      filePath: fileUrl,
-      imagePath: imageUrl,
+      filePath: fileUrl as string,
+      imagePath: imageUrl as string,
     },
   })
 
