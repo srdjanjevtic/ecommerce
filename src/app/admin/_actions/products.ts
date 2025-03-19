@@ -46,7 +46,7 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   // Upload file using @vercel/blob
   const fileBuffer = await data.file.arrayBuffer();
   const fileBlob = new Blob([fileBuffer], { type: data.file.type });
-  const fileResult = await put(`products/${crypto.randomUUID()}-${data.file.name}`, fileBlob, {
+  const fileResult = await put(`${crypto.randomUUID()}-${data.file.name}`, fileBlob, {
     access: 'public',
   });
   const fileUrl = fileResult.url; // Extract the URL from the PutBlobResult object
@@ -55,7 +55,7 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   // Upload image using @vercel/blob
   const imageBuffer = await data.image.arrayBuffer();
   const imageBlob = new Blob([imageBuffer], { type: data.image.type });
-  const imageResult = await put(`images/${crypto.randomUUID()}-${data.image.name}`, imageBlob, {
+  const imageResult = await put(`${crypto.randomUUID()}-${data.image.name}`, imageBlob, {
     access: 'public',
   });
   const imageUrl = imageResult.url; // Extract the URL from the PutBlobResult object
