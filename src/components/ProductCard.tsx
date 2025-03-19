@@ -9,7 +9,7 @@ import {
 } from "./ui/card"
 import { Button } from "./ui/button"
 import Link from "next/link"
-import Image from "next/image"
+// import Image from "next/image"
 
 type ProductCardProps = {
   id: string
@@ -29,7 +29,7 @@ export function ProductCard({
   return (
     <Card className="flex overflow-hidden flex-col">
       <div className="relative w-full h-auto aspect-video">
-        <Image src={imagePath} fill alt={name} />
+        <img src={imageUrl} alt="test 1" loading="lazy" decoding="async" data-nimg="fill" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" sizes="100vw" />
       </div>
       <CardHeader>
         <CardTitle>{name}</CardTitle>
