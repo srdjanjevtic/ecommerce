@@ -53,7 +53,7 @@ export function OrderInformation({
         <Img
           width="100%"
           alt={product.name}
-          src={`http://localhost:3000${product.imagePath}`}
+          src={`https://ecommerce-one-xi-91.vercel.app${product.imagePath}`}
         />
         <Row className="mt-8">
           <Column className="align-bottom">
@@ -61,7 +61,7 @@ export function OrderInformation({
           </Column>
           <Column align="right">
             <Button
-              href={`http://localhost:3000/products/download/${downloadVerificationId}`}
+              href={`https://ecommerce-one-xi-91.vercel.app/products/download/${downloadVerificationId}`}
               className="bg-black text-white px-6 py-4 rounded text-lg"
             >
               Download

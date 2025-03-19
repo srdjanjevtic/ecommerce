@@ -39,6 +39,7 @@ export default async function SuccessPage({
             fill
             alt={product.name}
             className="object-cover"
+            unoptimized
           />
         </div>
         <div>
