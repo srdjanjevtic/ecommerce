@@ -5,6 +5,7 @@ import { z } from "zod"
 import fs from "fs/promises"
 import { notFound, redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
+import { put } from "@vercel/blob";
 
 const fileSchema = z.instanceof(File, { message: "File is required" })
 const imageSchema = fileSchema.refine(
@@ -28,16 +29,37 @@ export async function addProduct(prevState: unknown, formData: FormData) {
 
   const data = result.data
 
-  await fs.mkdir("products", { recursive: true })
-  const filePath = `products/${crypto.randomUUID()}-${data.file.name}`
-  await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
+  // NON VERCEL HOBBY CODE
 
-  await fs.mkdir("public/products", { recursive: true })
-  const imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`
-  await fs.writeFile(
-    `public${imagePath}`,
-    Buffer.from(await data.image.arrayBuffer())
-  )
+  // await fs.mkdir("products", { recursive: true })
+  // const filePath = `products/${crypto.randomUUID()}-${data.file.name}`
+  // await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
+
+  // await fs.mkdir("public/products", { recursive: true })
+  // const imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`
+  // await fs.writeFile(
+  //   `public${imagePath}`,
+  //   Buffer.from(await data.image.arrayBuffer())
+  // )
+
+  // VERCEL HOBBY CODE EXAMPLE
+  // Upload file using @vercel/blob
+  const fileBuffer = await data.file.arrayBuffer();
+  const fileBlob = new Blob([fileBuffer], { type: data.file.type });
+  const fileResult = await put(`products/${crypto.randomUUID()}-${data.file.name}`, fileBlob, {
+    access: 'public',
+  });
+  const fileUrl = fileResult.url; // Extract the URL from the PutBlobResult object
+
+
+  // Upload image using @vercel/blob
+  const imageBuffer = await data.image.arrayBuffer();
+  const imageBlob = new Blob([imageBuffer], { type: data.image.type });
+  const imageResult = await put(`images/${crypto.randomUUID()}-${data.image.name}`, imageBlob, {
+    access: 'public',
+  });
+  const imageUrl = imageResult.url; // Extract the URL from the PutBlobResult object
+
 
   await prisma.product.create({
     data: {
@@ -45,8 +67,8 @@ export async function addProduct(prevState: unknown, formData: FormData) {
       name: data.name,
       description: data.description,
       priceInCents: data.priceInCents,
-      filePath,
-      imagePath,
+      filePath: fileUrl,
+      imagePath: imageUrl,
     },
   })
 
