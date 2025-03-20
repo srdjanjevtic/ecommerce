@@ -3,19 +3,21 @@ import { NextResponse } from "next/server"
 import Stripe from "stripe"
 import { Resend } from "resend"
 import PurchaseReceiptEmail from "@/email/PurchaseReceipt"
-import { NextApiRequest } from "next"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 const resend = new Resend(process.env.RESEND_API_KEY as string)
 
-export async function POST(req: NextApiRequest) {
-  const stripeSignature = req.headers["stripe-signature"] ?? ""
+export async function POST(req: Request) {
+  const stripeSignature = req.headers.get("stripe-signature") ?? "";
+
   if (stripeSignature) {
+    const body = await req.text(); // Read the body as text
     const event = stripe.webhooks.constructEvent(
-    await req.body,
-    stripeSignature,
+      body,
+      stripeSignature,
       process.env.STRIPE_WEBHOOK_SECRET as string
-    )
+    );
+
     if (event.type === "charge.succeeded") {
       const charge = event.data.object
       const productId = charge.metadata.productId
