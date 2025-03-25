@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
 import { isValidPassword } from "./lib/isValidPassword"
 
 export async function middleware(req: NextRequest) {
