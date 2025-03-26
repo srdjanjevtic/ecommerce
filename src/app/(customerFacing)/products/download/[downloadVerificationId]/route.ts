@@ -1,7 +1,7 @@
 import prisma from "@/db/db"
 import { NextRequest, NextResponse } from "next/server"
-import fs from "fs/promises"
-// import { head } from '@vercel/blob';
+// import fs from "fs/promises"
+import { head } from '@vercel/blob';
 
 type Params = Promise<{ downloadVerificationId: string }>
 
@@ -22,27 +22,27 @@ export async function GET(
     return NextResponse.redirect(new URL("/products/download/expired", req.url))
   }
 
-  // Vercel Blob code
+  ////////////////  Vercel Blob code ////////////////
  
-  // const { size } = await head(data.product.filePath);
-  // const name = data.product.name;
-  // const extension = data.product.filePath.split(".").pop();
+  const { size } = await head(data.product.filePath);
+  const extension = data.product.filePath.split(".").pop();
 
-  //   return new NextResponse(file, {
-  //   headers: {
-  //     "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
-  //     "Content-Length": size.toString(),
-  //   },
-  // })
-
-  const { size } = await fs.stat(data.product.filePath)
-  const file = await fs.readFile(data.product.filePath)
-  const extension = data.product.filePath.split(".").pop()
-
-  return new NextResponse(file, {
+    return new NextResponse(data.product.filePath, {
     headers: {
       "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
       "Content-Length": size.toString(),
     },
   })
+
+  /////////////////  NON VERCEL HOBBY CODE  ///////////////////
+  // const { size } = await fs.stat(data.product.filePath)
+  // const file = await fs.readFile(data.product.filePath)
+  // const extension = data.product.filePath.split(".").pop()
+
+  // return new NextResponse(file, {
+  //   headers: {
+  //     "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
+  //     "Content-Length": size.toString(),
+  //   },
+  // })
 }
