@@ -33,7 +33,7 @@ export async function GET(
   //     "Content-Length": size.toString(),
   //   },
   // })
-  return new NextResponse(null, {
+  return new NextResponse(data.product.filePath, {
   status: 302,
   headers: {
     "Content-Disposition": `attachment; filename="${data.product.name}"`,
