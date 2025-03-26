@@ -75,6 +75,8 @@ export async function addProduct(prevState: unknown, formData: FormData) {
 
   revalidatePath("/")
   revalidatePath("/products")
+  revalidatePath("/admin")
+  revalidatePath("/admin/products")
 
   redirect("/admin/products")
 }
@@ -129,6 +131,8 @@ export async function updateProduct(
 
   revalidatePath("/")
   revalidatePath("/products")
+  revalidatePath("/admin")
+  revalidatePath("/admin/products")
 
   redirect("/admin/products")
 }
@@ -141,6 +145,8 @@ export async function toggleProductAvailability(
 
   revalidatePath("/")
   revalidatePath("/products")
+  revalidatePath("/admin")
+  revalidatePath("/admin/products")
 }
 
 export async function deleteProduct(id: string) {
@@ -153,4 +159,6 @@ export async function deleteProduct(id: string) {
 
   revalidatePath("/")
   revalidatePath("/products")
+  revalidatePath("/admin")
+  revalidatePath("/admin/products")
 }
