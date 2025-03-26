@@ -21,6 +21,8 @@ export async function GET(
   }
 
   const metadata = await head(data.product.filePath);
+  console.log("metadata", metadata);
+  
   const extension = data.product.filePath.split(".").pop();
 
   // Fetch the blob from the download URL
