@@ -20,12 +20,11 @@ export async function GET(
     return NextResponse.redirect(new URL("/products/download/expired", req.url));
   }
 
-  // Vercel Blob code
-  const { size, url } = await head(data.product.filePath);
+  const metadata = await head(data.product.filePath);
   const extension = data.product.filePath.split(".").pop();
 
-   // Fetch the file from the URL
-  const response = await fetch(url);
+  // Fetch the blob from the download URL
+  const response = await fetch(metadata.downloadUrl);
   const blob = await response.blob();
 
   // Return the file for download
@@ -33,7 +32,7 @@ export async function GET(
     status: 200,
     headers: {
       "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
-      "Content-Length": size.toString(),
+      "Content-Length": metadata.size.toString(),
     },
   });
 }
