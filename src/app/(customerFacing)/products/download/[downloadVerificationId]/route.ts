@@ -24,8 +24,12 @@ export async function GET(
   const { size, url } = await head(data.product.filePath);
   const extension = data.product.filePath.split(".").pop();
 
+   // Fetch the file from the URL
+  const response = await fetch(url);
+  const blob = await response.blob();
+
   // Return the file for download
-  return NextResponse.json({ url }, {
+  return NextResponse.json(blob, {
     status: 200,
     headers: {
       "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
