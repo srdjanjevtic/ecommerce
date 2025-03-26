@@ -36,7 +36,7 @@ export async function GET(
   return new NextResponse(null, {
   status: 302,
   headers: {
-    Location: data.product.filePath,
+    "Content-Disposition": `attachment; filename="${data.product.name}"`,
   },
 });
 
