@@ -1,7 +1,7 @@
 import prisma from "@/db/db"
 import { NextRequest, NextResponse } from "next/server"
 // import fs from "fs/promises"
-// import { head, getBlob } from '@vercel/blob';
+import { head } from '@vercel/blob';
 
 type Params = Promise<{ downloadVerificationId: string }>
 
@@ -33,10 +33,13 @@ export async function GET(
   //     "Content-Length": size.toString(),
   //   },
   // })
-  return new NextResponse(data.product.filePath, {
+  const { size, downloadUrl } = await head(data.product.filePath);
+  const extension = data.product.filePath.split(".").pop()
+  return new NextResponse(downloadUrl, {
   status: 302,
   headers: {
-    "Content-Disposition": `attachment; filename="${data.product.name}"`,
+      "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
+      "Content-Length": size.toString(),
   },
 });
 
