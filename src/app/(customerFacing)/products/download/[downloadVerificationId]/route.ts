@@ -33,9 +33,9 @@ export async function GET(
   //     "Content-Length": size.toString(),
   //   },
   // })
-  const { size, downloadUrl } = await head(data.product.filePath);
+  const { size, url } = await head(data.product.filePath);
   const extension = data.product.filePath.split(".").pop()
-  return new NextResponse(downloadUrl, {
+  return new NextResponse(url, {
   status: 302,
   headers: {
       "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
