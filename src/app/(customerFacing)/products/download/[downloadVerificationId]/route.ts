@@ -1,9 +1,8 @@
-import prisma from "@/db/db"
-import { NextRequest, NextResponse } from "next/server"
-// import fs from "fs/promises"
+import prisma from "@/db/db";
+import { NextRequest, NextResponse } from "next/server";
 import { head } from '@vercel/blob';
 
-type Params = Promise<{ downloadVerificationId: string }>
+type Params = Promise<{ downloadVerificationId: string }>;
 
 export async function GET(
   req: NextRequest,
@@ -15,43 +14,22 @@ export async function GET(
   const data = await prisma.downloadVerification.findUnique({
     where: { id: downloadVerificationId, expiresAt: { gt: new Date() } },
     select: { product: { select: { filePath: true, name: true } } },
-  })
-
+  });
 
   if (data == null) {
-    return NextResponse.redirect(new URL("/products/download/expired", req.url))
+    return NextResponse.redirect(new URL("/products/download/expired", req.url));
   }
 
-  ////////////////  Vercel Blob code ////////////////
- 
-  // const { size } = await head(data.product.filePath);
-  // const extension = data.product.filePath.split(".").pop();
-
-  //   return new NextResponse(data.product.filePath, {
-  //   headers: {
-  //     "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
-  //     "Content-Length": size.toString(),
-  //   },
-  // })
+  // Vercel Blob code
   const { size, url } = await head(data.product.filePath);
-  const extension = data.product.filePath.split(".").pop()
-  return new NextResponse(url, {
-  status: 302,
-  headers: {
+  const extension = data.product.filePath.split(".").pop();
+
+  // Return the file for download
+  return NextResponse.json({ url }, {
+    status: 200,
+    headers: {
       "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
       "Content-Length": size.toString(),
-  },
-});
-
-  /////////////////  NON VERCEL HOBBY CODE  //////////////////
-  // const { size } = await fs.stat(data.product.filePath)
-  // const file = await fs.readFile(data.product.filePath)
-  // const extension = data.product.filePath.split(".").pop()
-
-  // return new NextResponse(file, {
-  //   headers: {
-  //     "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
-  //     "Content-Length": size.toString(),
-  //   },
-  // })
+    },
+  });
 }
