@@ -1,15 +1,14 @@
 import { PageHeader } from "@/app/admin/_components/PageHeader"
 import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard"
 import prisma from "@/db/db"
-import { cache } from "@/lib/cache"
 import { Suspense } from "react"
 
-const getProducts = cache(() => {
+const getProducts = () => {
   return prisma.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { name: "asc" },
   })
-}, ["/products", "getProducts"])
+}
 
 export default function ProductsPage() {
   return (
@@ -35,8 +34,12 @@ export default function ProductsPage() {
   )
 }
 
+const getRandomNumber = () => Math.floor(Math.random() * 1000)
+
 async function ProductsSuspense() {
   const products = await getProducts()
+  const randomNumber = getRandomNumber()
+  if (randomNumber === 0) throw new Error("Error fetching products")
 
   return products.map(product => <ProductCard key={product.id} {...product} />)
 }
