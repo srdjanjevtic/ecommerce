@@ -4,8 +4,8 @@ import prisma from "@/db/db"
 import { Suspense } from "react"
 
 const getProducts = () => {
-  const getRandomNumber = () => Math.floor(Math.random() * 1000)
-  const randomNumber = getRandomNumber()
+  const getRandomNumber = (count: number) => Math.floor(Math.random() * count)
+  const randomNumber = getRandomNumber(2)
   if (randomNumber === 0) throw new Error("Error fetching products")
     
   return prisma.product.findMany({
