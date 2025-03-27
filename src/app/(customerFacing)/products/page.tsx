@@ -3,11 +3,7 @@ import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard"
 import prisma from "@/db/db"
 import { Suspense } from "react"
 
-const getProducts = () => {
-  const getRandomNumber = (count: number) => Math.floor(Math.random() * count)
-  const randomNumber = getRandomNumber(2)
-  if (randomNumber === 0) throw new Error("Error fetching products")
-    
+const getProducts = () => {    
   return prisma.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { name: "asc" },
